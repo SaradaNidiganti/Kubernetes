@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    name: nginx-pod
+spec:
+  containers:
+  - name: nginx-pod
+    image: nginx
+    # resources:
+    #   limits:
+    #     memory: "128Mi"
+    #     cpu: "500m"
+    ports:
+      - containerPort: 80
+  - name: sidecar
+    image: python:3
+    command: ["python"]
+    args: ["-c","import math; num=5; result=math.factorial(num); print('the factorial of {num} is {result}')"]
+
