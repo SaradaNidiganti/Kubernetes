@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod
+  labels:
+    name: busybox-pod
+spec:
+  containers:
+  - name: busybox-container # busybox for ping cmd
+    image: busybox
+    command: ["sh","-c","echo hello K8s && sleep 3600"]

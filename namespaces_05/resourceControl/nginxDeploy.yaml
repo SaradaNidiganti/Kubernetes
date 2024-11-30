@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx-deploy
+  namespace: test-team
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx-deploy
+  template:
+    metadata:
+      labels:
+        app: nginx-deploy
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        # resources:
+        #   requests:
+        #     cpu: "100m"
+        #     memory: "200Mi"
+        #   limits:
+        #     memory: "250Mi" #if memory is full then k8s, pod automaticalli kills and memory out of OOM killed error.
+        #     cpu: "150m"
+        ports:
+        - containerPort: 80

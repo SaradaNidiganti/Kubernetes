@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata: 
+  name: test-team-quota
+  namespace: test-team
+spec:
+  hard: #hardware specifications within the ns dev-team
+    requests.cpu: "1" #minium
+    requests.memory: "1Gi" #RAM
+    limits.cpu: "2" #maximun
+    limits.memory: "2Gi"
+    pods: "5"
+

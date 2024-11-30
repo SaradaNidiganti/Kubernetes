@@ -1,0 +1,19 @@
+# make sure the calico network in cluster is enabled before applying any network policies
+apiVersion:  networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-cross-namespace-comm
+  namespace: dev-ns-team
+spec:
+  podSelector: #applying incoming comm policy to destination
+    matchLabels:
+      app: nginx-deploy
+  policyTypes: # ns clocking commu
+  - Ingress 
+  ingress: #incomming source
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: default # custom label cmd-- kubectl label ns default nscustom=default
+
+      
