@@ -33,5 +33,24 @@ NameSpaces: are used to do logical partisioning of a cluster mainly by using 1.A
   --3. apply IAM rules to new user/groups
 --2. Resource utilization control: resource quota and resource limit control
     --ResourceQuota:
+--3. Network control: network policies on name spaces (allow/deny)
+Kubernetes Volumes:
+--1. empDir: it won't share the data from one pod to another pod within same node, generally it won't use in production because when pod is deleted that empdir data also will be deleted(EmptyDir (a temporary directory that shares a pod's lifetime))
+    --A container crashing does not remove a Pod from a node. The data in an emptyDir volume is safe across container crashes.
+    --Some uses for an emptyDir are:
+        --scratch space, such as for a disk-based merge sort
+        --checkpointing a long computation for recovery from crashes
+        --holding files that a content-manager container fetches while a webserver container serves the data
+--2. HostPath: A hostPath volume mounts a file or directory from the host node's filesystem into your Pod. This is not something that most Pods will need, but it offers a powerful escape hatch for some applications.(Node's data can't share to other nodes, but pods under same node can share the data)
+    --If we want to share the data between nodes as well then we have to use any helper containers to synchronize the data.
+    --Using the hostPath volume type presents many security risks. If you can avoid using a hostPath volume, you should. For example, define a local PersistentVolume, and use that instead.
+    --Some uses for a hostPath are:
+        --running a container that needs access to node-level system components (such as a container that transfers system logs to a central location, accessing those logs using a read-only mount of /var/log)
+        --making a configuration file stored on the host system available read-only to a static pod; unlike normal Pods, static Pods cannot access ConfigMaps
+--3. PV(persistent volumes) & PVC(persistent volumes claims):
+    --A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes.
+    --A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory). Claims can request specific size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany, ReadWriteMany, or ReadWriteOncePod, see AccessModes).
+    
+
 
 
