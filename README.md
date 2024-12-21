@@ -51,6 +51,11 @@ Kubernetes Volumes:
     --A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes.
     --A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory). Claims can request specific size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany, ReadWriteMany, or ReadWriteOncePod, see AccessModes).
     
+PDB(Pod Distruption Budget): (Maintain atleast one node should be running and not for eviction)(it only protects the node consiciously not for unexpected node failures, so only for manual)
+To cordoned the node use cmd:
+-- "kubectl drain <node_name> --ignore-daemonsets --delete-emptydir-data"
+To uncordoned the node use cmd:
+-- "kubectl uncordon <node_name>"
 
 
 
